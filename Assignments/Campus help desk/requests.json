@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1790049549660",
+    "studentName": "Pranjal Singh",
+    "email": "pranjal.something@gmail.com",
+    "category": "IT & Wi-Fi",
+    "description": "for testing purpose",
+    "priority": "Urgent",
+    "status": "Pending",
+    "createdAt": "2026-09-22T03:59:09.660Z"
+  },
+  {
+    "id": "1726998000001",
+    "studentName": "Aarav Sharma",
+    "email": "aarav.sharma@campus.edu",
+    "category": "Hostel",
+    "description": "Room 204 ceiling fan speed regulator is broken and stuck at lowest speed.",
+    "priority": "Medium",
+    "status": "In Progress",
+    "createdAt": "2026-09-22T08:30:00.000Z"
+  }
+]

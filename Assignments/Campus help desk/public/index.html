@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Help Desk | Student Support Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Plus Jakarta Sans for a modern, crisp SaaS aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Font Awesome 6 Icons (No emojis used anywhere) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="top-nav">
+    <div class="container nav-wrapper">
+      <div class="brand">
+        <div class="brand-badge">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Campus Help Desk</h1>
+          <p>Student Service &amp; Grievance Management</p>
+        </div>
+      </div>
+
+      <!-- Live Support Indicator -->
+      <div class="nav-right">
+        <div class="system-status">
+          <span class="pulse-dot"></span>
+          <span>Help Desk Online</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-body">
+
+    <!-- KPI Metric Summary Cards -->
+    <section class="metrics-grid" aria-label="Request Metrics">
+      <div class="metric-card">
+        <div class="metric-icon total-icon">
+          <i class="fa-solid fa-inbox"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-label">Total Requests</span>
+          <span class="metric-value" id="statTotal">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon pending-icon">
+          <i class="fa-regular fa-clock"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-label">Pending</span>
+          <span class="metric-value" id="statPending">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon progress-icon">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-label">In Progress</span>
+          <span class="metric-value" id="statProgress">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon resolved-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-label">Resolved</span>
+          <span class="metric-value" id="statResolved">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST SUBMISSION FORM SECTION -->
+    <section class="panel form-panel">
+      <div class="panel-header">
+        <div class="panel-header-title">
+          <div class="panel-icon">
+            <i class="fa-solid fa-file-pen"></i>
+          </div>
+          <div>
+            <h2>Submit a Request</h2>
+            <p>Log a campus problem or administrative request for quick resolution.</p>
+          </div>
+        </div>
+
+        <!-- Quick Demo Chips (No emojis, clean icons) -->
+        <div class="quick-chips-wrapper">
+          <span class="quick-chips-title"><i class="fa-solid fa-bolt"></i> Quick Fill:</span>
+          <button type="button" class="quick-chip" onclick="fillTemplate('wifi')">
+            <i class="fa-solid fa-wifi"></i> Wi-Fi
+          </button>
+          <button type="button" class="quick-chip" onclick="fillTemplate('hostel')">
+            <i class="fa-solid fa-building"></i> Hostel
+          </button>
+          <button type="button" class="quick-chip" onclick="fillTemplate('mess')">
+            <i class="fa-solid fa-utensils"></i> Mess
+          </button>
+          <button type="button" class="quick-chip" onclick="fillTemplate('library')">
+            <i class="fa-solid fa-book"></i> Library
+          </button>
+        </div>
+      </div>
+
+      <form id="requestForm" class="request-form" novalidate>
+        <div class="form-grid">
+          
+          <!-- Student Name -->
+          <div class="field-box">
+            <label for="studentName">
+              <i class="fa-regular fa-user"></i> Student Name <span class="req">*</span>
+            </label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="studentName"
+                name="studentName"
+                placeholder="e.g. Aarav Sharma"
+                required
+                autocomplete="name"
+              />
+            </div>
+            <span class="field-error" id="nameError"></span>
+          </div>
+
+          <!-- Email Address -->
+          <div class="field-box">
+            <label for="email">
+              <i class="fa-regular fa-envelope"></i> Email Address <span class="req">*</span>
+            </label>
+            <div class="input-wrap">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="e.g. aarav.sharma@campus.edu"
+                required
+                autocomplete="email"
+              />
+            </div>
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <!-- Category -->
+          <div class="field-box">
+            <label for="category">
+              <i class="fa-solid fa-layer-group"></i> Category <span class="req">*</span>
+            </label>
+            <div class="input-wrap">
+              <select id="category" name="category" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="Hostel">Hostel &amp; Accommodation</option>
+                <option value="Academic">Academic &amp; Courses</option>
+                <option value="IT & Wi-Fi">IT &amp; Wi-Fi Network</option>
+                <option value="Infrastructure">Infrastructure &amp; Maintenance</option>
+                <option value="Mess & Canteen">Mess &amp; Canteen</option>
+                <option value="Library">Library Services</option>
+                <option value="Sports">Sports &amp; Gym</option>
+                <option value="Other">Other Queries</option>
+              </select>
+            </div>
+            <span class="field-error" id="categoryError"></span>
+          </div>
+
+          <!-- Priority Interactive Pill Selector -->
+          <div class="field-box">
+            <label>
+              <i class="fa-solid fa-triangle-exclamation"></i> Priority <span class="req">*</span>
+            </label>
+            <!-- Native select for accessibility & form compatibility -->
+            <select id="priority" name="priority" required class="visually-hidden">
+              <option value="" disabled selected>Select Priority</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+
+            <!-- Interactive Priority Cards -->
+            <div class="priority-selector" id="priorityPills">
+              <button type="button" class="priority-card" data-value="Low">
+                <span class="p-indicator dot-low"></span>
+                <span class="p-title">Low</span>
+                <span class="p-desc">General</span>
+              </button>
+              <button type="button" class="priority-card" data-value="Medium">
+                <span class="p-indicator dot-medium"></span>
+                <span class="p-title">Medium</span>
+                <span class="p-desc">2-3 days</span>
+              </button>
+              <button type="button" class="priority-card" data-value="High">
+                <span class="p-indicator dot-high"></span>
+                <span class="p-title">High</span>
+                <span class="p-desc">Within 24h</span>
+              </button>
+              <button type="button" class="priority-card" data-value="Urgent">
+                <span class="p-indicator dot-urgent"></span>
+                <span class="p-title">Urgent</span>
+                <span class="p-desc">Immediate</span>
+              </button>
+            </div>
+            <span class="field-error" id="priorityError"></span>
+          </div>
+
+          <!-- Problem Description -->
+          <div class="field-box full-span">
+            <div class="label-row">
+              <label for="description">
+                <i class="fa-solid fa-align-left"></i> Problem Description <span class="req">*</span>
+              </label>
+              <span class="char-counter" id="charCount">0 / 500</span>
+            </div>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              maxlength="500"
+              placeholder="Describe the issue clearly (include location, room number, or device details)..."
+              required
+            ></textarea>
+            <span class="field-error" id="descriptionError"></span>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-ghost" id="resetBtn">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i> Submit Request
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- SUBMITTED REQUESTS FEED (DISPLAYED BELOW THE FORM) -->
+    <section class="panel list-panel">
+      <div class="panel-header list-panel-header">
+        <div class="panel-header-title">
+          <div class="panel-icon icon-purple">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+          <div>
+            <h2>Submitted Requests</h2>
+            <p>Live campus grievance records with status updates and actions.</p>
+          </div>
+        </div>
+
+        <button id="refreshBtn" class="btn btn-ghost btn-sm" title="Reload requests">
+          <i class="fa-solid fa-arrows-rotate"></i> Refresh
+        </button>
+      </div>
+
+      <!-- Interactive Filter Bar -->
+      <div class="filter-bar">
+        <!-- Status Tabs -->
+        <div class="status-tab-group" id="statusTabs">
+          <button type="button" class="status-tab active" data-status="All">
+            All <span class="tab-count" id="tabCountAll">0</span>
+          </button>
+          <button type="button" class="status-tab" data-status="Pending">
+            Pending <span class="tab-count tab-pending" id="tabCountPending">0</span>
+          </button>
+          <button type="button" class="status-tab" data-status="In Progress">
+            In Progress <span class="tab-count tab-progress" id="tabCountProgress">0</span>
+          </button>
+          <button type="button" class="status-tab" data-status="Resolved">
+            Resolved <span class="tab-count tab-resolved" id="tabCountResolved">0</span>
+          </button>
+        </div>
+
+        <!-- Search & Category Dropdown -->
+        <div class="filter-inputs">
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by student, email, text..."
+            />
+            <button type="button" id="clearSearchBtn" class="clear-btn">&times;</button>
+          </div>
+
+          <select id="filterCategory" class="category-select" aria-label="Filter by Category">
+            <option value="All">All Categories</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Academic">Academic</option>
+            <option value="IT & Wi-Fi">IT &amp; Wi-Fi</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Mess & Canteen">Mess &amp; Canteen</option>
+            <option value="Library">Library</option>
+            <option value="Sports">Sports</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Requests Cards Feed -->
+      <div id="requestsContainer" class="requests-grid">
+        <div class="loading-box">
+          <i class="fa-solid fa-circle-notch fa-spin"></i>
+          <p>Loading requests from server...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- EDIT / UPDATE MODAL -->
+  <div class="modal-overlay" id="editModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <h3>Update Request</h3>
+        </div>
+        <button class="modal-close" id="closeEditModal">&times;</button>
+      </div>
+
+      <form id="editForm" class="modal-body">
+        <input type="hidden" id="editRequestId" />
+
+        <div class="modal-grid">
+          <div class="field-box">
+            <label for="editStudentName">Student Name</label>
+            <input type="text" id="editStudentName" required />
+          </div>
+
+          <div class="field-box">
+            <label for="editEmail">Email Address</label>
+            <input type="email" id="editEmail" required />
+          </div>
+
+          <div class="field-box">
+            <label for="editCategory">Category</label>
+            <select id="editCategory" required>
+              <option value="Hostel">Hostel &amp; Accommodation</option>
+              <option value="Academic">Academic &amp; Courses</option>
+              <option value="IT & Wi-Fi">IT &amp; Wi-Fi Network</option>
+              <option value="Infrastructure">Infrastructure &amp; Maintenance</option>
+              <option value="Mess & Canteen">Mess &amp; Canteen</option>
+              <option value="Library">Library Services</option>
+              <option value="Sports">Sports &amp; Gym</option>
+              <option value="Other">Other Queries</option>
+            </select>
+          </div>
+
+          <div class="field-box">
+            <label for="editPriority">Priority</label>
+            <select id="editPriority" required>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+
+          <div class="field-box full-span">
+            <label for="editStatus">Status</label>
+            <select id="editStatus" required>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+          </div>
+
+          <div class="field-box full-span">
+            <label for="editDescription">Problem Description</label>
+            <textarea id="editDescription" rows="3" required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelEditBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveEditBtn">
+            <i class="fa-solid fa-check"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="deleteModal" aria-hidden="true">
+    <div class="modal-card modal-card-sm">
+      <div class="modal-header modal-danger-header">
+        <div class="modal-title text-danger">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h3>Delete Request</h3>
+        </div>
+        <button class="modal-close" id="closeDeleteModal">&times;</button>
+      </div>
+
+      <div class="modal-body delete-body">
+        <p>Are you sure you want to delete the request submitted by <strong id="deleteTargetName">Student</strong>?</p>
+        <p class="delete-note">This action permanently deletes the entry from the database file.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+          <i class="fa-regular fa-trash-can"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast-popup" role="alert">
+    <div class="toast-content">
+      <i class="fa-solid fa-circle-check toast-icon" id="toastIcon"></i>
+      <span id="toastMessage">Action completed successfully</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>Assignment 5 Mini Project &bull; Campus Help Desk &bull; Express.js &amp; Fetch API</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

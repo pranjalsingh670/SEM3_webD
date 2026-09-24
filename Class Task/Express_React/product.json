@@ -1,11 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Wireless Mouse",
-    "price": 599,
-    "category": "Electronics"
-  },
-  {
     "id": 2,
     "name": "Mechanical Keyboard",
     "price": 2499,
@@ -58,5 +52,11 @@
     "name": "hello",
     "price": 20000,
     "category": "abes"
+  },
+  {
+    "id": 12,
+    "name": "Laptop",
+    "price": 55000,
+    "category": "Electronics"
   }
 ]
