@@ -1,0 +1,85 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1483 >>
+stream
+BT
+/F1 20 Tf
+50 730 Td
+(Semester 3 Mathematics - Graded Assignment 1) Tj
+/F2 11 Tf
+0 -22 Td
+(Submission Deadline: October 15, 2026 | Max Marks: 50 | Student: Pranjal Singh) Tj
+0 -10 Td
+ET
+0.5 w
+0.2 0.3 0.6 RG
+50 685 m 562 685 l S
+BT
+50 660 Td
+/F1 13 Tf
+0 -22 Td
+(Question 1: Eigenvalues and Spectral Decomposition \(15 Marks\)) Tj
+/F2 10 Tf
+0 -16 Td
+(Given matrix M = [[3, 2, 4], [2, 0, 2], [4, 2, 3]], compute the characteristic polynomial det\(M - lambda*I\).) Tj
+0 -16 Td
+(Verify that lambda = 8 is an eigenvalue and find its corresponding unit eigenvector.) Tj
+0 -16 Td
+(Find the remaining eigenvalues and verify that eigenvectors of distinct eigenvalues are orthogonal.) Tj
+/F1 13 Tf
+0 -22 Td
+(Question 2: Discrete Probability & Markov Chains \(15 Marks\)) Tj
+/F2 10 Tf
+0 -16 Td
+(A server transitions between states: Healthy \(H\), Warning \(W\), and Critical \(C\).) Tj
+0 -16 Td
+(Transition matrix P = [[0.8, 0.15, 0.05], [0.2, 0.6, 0.2], [0.3, 0.3, 0.4]].) Tj
+0 -16 Td
+(Compute the stationary distribution pi such that pi * P = pi, with sum\(pi\) = 1.) Tj
+/F1 13 Tf
+0 -22 Td
+(Question 3: Graph Connectivity and Spanning Trees \(20 Marks\)) Tj
+/F2 10 Tf
+0 -16 Td
+(Prove that any connected undirected graph with n vertices and n - 1 edges is a tree.) Tj
+0 -16 Td
+(Apply Kruskal algorithm to find the Minimum Spanning Tree \(MST\) on the given network topology.) Tj
+/F3 9 Tf
+0 -416 Td
+(Semester 3 Academic Assignment | Express File Search & Download | Generated: 2026-2027) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000261 00000 n 
+0000001796 00000 n 
+0000001871 00000 n 
+0000001941 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2009
+%%EOF

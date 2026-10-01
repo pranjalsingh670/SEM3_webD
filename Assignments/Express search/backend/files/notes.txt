@@ -1,0 +1,77 @@
+================================================================================
+                    SEMESTER 3: COMPUTER SCIENCE & ENGINEERING
+                   CS302 - FULL-STACK WEB DEVELOPMENT NOTES
+================================================================================
+
+1. OVERVIEW OF WEB ARCHITECTURE
+--------------------------------------------------------------------------------
+The modern web architecture follows a Client-Server paradigm typically structured
+in three tiers:
+  - Presentation Layer (Frontend): Executes in user's browser (HTML5, CSS3, React).
+  - Application Layer (Backend): Executes business logic and routing (Node.js, Express).
+  - Storage Layer: Local filesystem (for file assets) or Databases (SQL/NoSQL).
+
+2. NODE.JS & THE EVENT LOOP
+--------------------------------------------------------------------------------
+- Node.js is an open-source, cross-platform JavaScript runtime built on Chrome's V8 engine.
+- Single-Threaded Event Loop: Utilizes non-blocking I/O operations via libuv.
+- Worker Threads & Thread Pool: Asynchronous file operations (fs.promises) execute
+  on libuv worker threads, keeping the main event loop unblocked for incoming HTTP requests.
+
+3. EXPRESS.JS FRAMEWORK FUNDAMENTALS
+--------------------------------------------------------------------------------
+Express is a minimalist, flexible Node.js web application framework providing robust
+features for web and mobile applications:
+
+A. Middleware Pipeline:
+   Functions that have access to the request object (req), response object (res),
+   and next middleware in the application's request-response cycle.
+   Example:
+     app.use(cors());          // Enables Cross-Origin Resource Sharing
+     app.use(express.json());  // Parses JSON request bodies
+
+B. Routing Mechanisms:
+   - GET    /api/files/search   -> Search files with query parameters
+   - GET    /api/files/download -> Stream binary file downloads
+
+4. SECURE FILE HANDLING & DIRECTORY TRAVERSAL DEFENSE
+--------------------------------------------------------------------------------
+Vulnerability:
+  When serving files based on user-supplied filenames, malicious input like:
+    ../../../../etc/passwd or ..\..\windows\system.ini
+  can escape the intended directory.
+
+Defense Strategy:
+  1. Sanitize with path.basename(filename) to strip directories:
+     path.basename("../../secret.txt") -> "secret.txt"
+  2. Resolve absolute paths and verify boundary containment:
+     const safePath = path.resolve(FILES_DIR, sanitizedName);
+     if (!safePath.startsWith(path.resolve(FILES_DIR) + path.sep)) {
+       throw new Error("Access Denied: Path traversal detected");
+     }
+  3. Use Express built-in res.download() for controlled stream transfers.
+
+5. REACT.JS FRONTEND ARCHITECTURE
+--------------------------------------------------------------------------------
+- Declarative UI: Components re-render automatically when state changes.
+- Hooks:
+  - useState: Manages local component states (query, files, loading, theme).
+  - useEffect: Handles side-effects, such as fetching initial files on page load.
+- Blob Handling for Secure Downloads:
+  Instead of raw navigation, files can be fetched as binary Blobs:
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    // Create anchor and trigger browser download dialog
+
+6. EXAM & EVALUATION QUICK CHEATSHEET
+--------------------------------------------------------------------------------
+- HTTP Status Codes:
+  * 200 OK: Request succeeded.
+  * 400 Bad Request: Missing or malformed parameters.
+  * 403 Forbidden: Directory traversal or permission violation.
+  * 404 Not Found: Requested file or endpoint does not exist.
+  * 500 Internal Server Error: Unhandled server-side exception.
+
+Author: Semester 3 Academic Study Group
+Course: CS302 Web Technologies & Application Systems
+================================================================================

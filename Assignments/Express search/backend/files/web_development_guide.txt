@@ -1,0 +1,61 @@
+================================================================================
+                    FULL-STACK WEB DEVELOPMENT HANDBOOK
+                  EXPRESS.JS REST API & REACT INTEGRATION
+================================================================================
+
+1. SYSTEM ARCHITECTURE
+--------------------------------------------------------------------------------
+This project demonstrates a decoupled full-stack architecture:
+
+  [ React Frontend (Vite) ]  <--- HTTP JSON / Stream --->  [ Express.js Backend ]
+       Port: 3000 / 5173                                        Port: 5000
+                                                                     |
+                                                           [ Local Filesystem ]
+                                                            backend/files/
+
+2. BACKEND API SPECIFICATION
+--------------------------------------------------------------------------------
+A. File Search Endpoint:
+   - Method: GET
+   - Route:  /api/files/search?q=keyword
+   - Query Parameters:
+     * q (string, optional): Search keyword. If omitted, returns all files.
+   - Response (200 OK):
+     {
+       "files": [
+         {
+           "name": "math_assignment.pdf",
+           "size": 24567,
+           "type": ".pdf"
+         }
+       ]
+     }
+   - Logic:
+     Reads the contents of `backend/files/` via `fs.promises.readdir`.
+     Applies case-insensitive partial substring matching:
+       file.name.toLowerCase().includes(query.toLowerCase())
+
+B. Secure File Download Endpoint:
+   - Method: GET
+   - Route:  /api/files/download/:filename
+   - Security Safeguards:
+     * Enforces `path.basename(filename)` to strip illegal relative operators.
+     * Validates that the resolved absolute path starts strictly within `FILES_DIR`.
+     * Streams the file via Express `res.download(filePath, fileName)`.
+   - Response Codes:
+     * 200 OK: File stream attached with Content-Disposition header.
+     * 400 Bad Request: Missing filename.
+     * 403 Forbidden: Directory traversal attempt detected.
+     * 404 Not Found: File does not exist.
+
+3. FRONTEND INTEGRATION HIGHLIGHTS
+--------------------------------------------------------------------------------
+- Centralized Endpoint Config: `src/config.js` maintains the base API URL.
+- Responsive Card Grid: Dynamically displays matching files with size & type badges.
+- Native Blob Download: Uses `fetch()` + `URL.createObjectURL(blob)` for clean
+  browser downloads while keeping error handling inside React.
+- Dark & Light Mode: CSS Custom Properties toggled via `data-theme` attribute.
+
+================================================================================
+Designed for College Mini-Project & Assignment Defense
+================================================================================

@@ -1,0 +1,66 @@
+================================================================================
+                    DATA STRUCTURES & ALGORITHMS (CS201)
+                     SEMESTER 3 COMPREHENSIVE STUDY GUIDE
+================================================================================
+
+1. ASYMPTOTIC COMPLEXITY REFERENCE TABLE
+--------------------------------------------------------------------------------
+Data Structure        Access     Search     Insertion    Deletion    Space
+--------------------------------------------------------------------------------
+Array                 O(1)       O(n)       O(n)         O(n)        O(n)
+Dynamic Array         O(1)       O(n)       O(1)*        O(n)        O(n)
+Singly Linked List    O(n)       O(n)       O(1)         O(1)        O(n)
+Doubly Linked List    O(n)       O(n)       O(1)         O(1)        O(n)
+Stack (Array/List)    O(n)       O(n)       O(1)         O(1)        O(n)
+Queue (FIFO)          O(n)       O(n)       O(1)         O(1)        O(n)
+Binary Search Tree    O(log n)   O(log n)   O(log n)     O(log n)    O(n)
+AVL Tree              O(log n)   O(log n)   O(log n)     O(log n)    O(n)
+Hash Table            N/A        O(1) avg   O(1) avg     O(1) avg    O(n)
+--------------------------------------------------------------------------------
+* Amortized complexity
+
+2. TREE BALANCING & AVL ROTATIONS
+--------------------------------------------------------------------------------
+An AVL tree maintains a balance factor BF = Height(Left) - Height(Right) in {-1, 0, 1}.
+
+A. LL Rotation (Single Right Rotation):
+   Triggered when a new node is inserted into the left subtree of the left child.
+   Pivot node becomes parent; old parent becomes right child.
+
+B. RR Rotation (Single Left Rotation):
+   Triggered when a new node is inserted into the right subtree of the right child.
+   Pivot node becomes parent; old parent becomes left child.
+
+C. LR Rotation (Left-Right Double Rotation):
+   Left rotation on child followed by right rotation on parent.
+
+D. RL Rotation (Right-Left Double Rotation):
+   Right rotation on child followed by left rotation on parent.
+
+3. GRAPH ALGORITHMS
+--------------------------------------------------------------------------------
+A. Breadth-First Search (BFS):
+   - Uses a FIFO Queue.
+   - Time Complexity: O(V + E)
+   - Applications: Shortest path in unweighted graph, level-order traversal, web crawlers.
+
+B. Depth-First Search (DFS):
+   - Uses a LIFO Stack (or recursion call stack).
+   - Time Complexity: O(V + E)
+   - Applications: Topological sorting, cycle detection, strongly connected components (Kosaraju / Tarjan).
+
+C. Minimum Spanning Tree (MST):
+   - Kruskal's Algorithm: Greedy edge-based algorithm using Disjoint-Set Union (DSU). O(E log E).
+   - Prim's Algorithm: Greedy vertex-based algorithm using Min-Priority Queue. O(E log V).
+
+4. HASHING & COLLISION RESOLUTION
+--------------------------------------------------------------------------------
+- Separate Chaining: Each bucket holds a linked list or red-black tree of colliding entries.
+- Open Addressing:
+  1. Linear Probing: h(k, i) = (h'(k) + i) mod m (Susceptible to primary clustering).
+  2. Quadratic Probing: h(k, i) = (h'(k) + c1*i + c2*i^2) mod m.
+  3. Double Hashing: h(k, i) = (h1(k) + i * h2(k)) mod m (Eliminates clustering).
+
+================================================================================
+Academic Year: 2026-2027 | Prepared for Semester 3 Lab & Theory Exams
+================================================================================
