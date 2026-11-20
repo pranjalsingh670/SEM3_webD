@@ -1,0 +1,6 @@
+node_modules/
+npm-debug.log
+.DS_Store
+# Optional: keep uploads directory in git but ignore uploaded test files
+uploads/*
+!uploads/.gitkeep

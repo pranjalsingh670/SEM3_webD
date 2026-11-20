@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileDrop - Upload Single or Multiple Files</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <div>
+          <h1>FileDrop Server</h1>
+          <p class="subtitle">Upload single or multiple files from your device to the Node.js server</p>
+        </div>
+      </div>
+      
+      <!-- Upload Mode Switcher -->
+      <div class="mode-toggle-card">
+        <span class="mode-label">Selection Mode:</span>
+        <label class="toggle-switch" for="multipleToggle">
+          <input type="checkbox" id="multipleToggle" checked>
+          <span class="slider"></span>
+        </label>
+        <span id="modeStatusText" class="mode-badge multiple">Multiple Files</span>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+      <!-- Left Column: Upload Section -->
+      <section class="card upload-card">
+        <h2 class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+            <path d="M12 12v9"></path>
+            <path d="m16 16-4-4-4 4"></path>
+          </svg>
+          Select & Upload Files
+        </h2>
+
+        <!-- Drop Zone Area -->
+        <div id="dropZone" class="drop-zone" tabindex="0">
+          <input type="file" id="fileInput" name="files" multiple>
+          <div class="drop-zone-content">
+            <div class="upload-illustration">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <p class="drop-primary-text">Drag & drop your files here</p>
+            <p class="drop-secondary-text">or <span class="browse-link">browse from your computer</span></p>
+            <div class="specs-badge">Any file type up to 50MB each</div>
+          </div>
+        </div>
+
+        <!-- Staged Files Preview List -->
+        <div id="stagedContainer" class="staged-container hidden">
+          <div class="staged-header">
+            <span class="staged-count-badge" id="stagedSummary">0 file(s) selected</span>
+            <button type="button" id="clearAllBtn" class="btn-text danger">Clear All</button>
+          </div>
+          <div id="stagedList" class="staged-list">
+            <!-- Dynamically populated selected files -->
+          </div>
+        </div>
+
+        <!-- Upload Progress Indicator -->
+        <div id="progressWrapper" class="progress-wrapper hidden">
+          <div class="progress-info">
+            <span id="progressStatus">Uploading...</span>
+            <span id="progressPercentage">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="action-row">
+          <button type="button" id="uploadBtn" class="btn btn-primary" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>Upload to Server</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right Column: Server Files List -->
+      <section class="card files-card">
+        <div class="files-card-header">
+          <h2 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 8 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path>
+            </svg>
+            Files on Server
+          </h2>
+          <div class="header-actions">
+            <button id="refreshBtn" class="btn-icon" title="Refresh files list">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+                <path d="M16 21h5v-5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="serverFilesList" class="server-files-list">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading server files...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
